@@ -1,13 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-const Users = require('../controllers/users');
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  Users.findAllUsers().then(users => {
-      res.send(users)
-  })
+  res.render('signup')
 });
 
 module.exports = router;
