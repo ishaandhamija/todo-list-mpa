@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "demodb",
+    "password": "demodb",
+    "database": "demodb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "demodb",
+    "password": "demodb",
+    "database": "demodb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "demodb",
+    "password": "demodb",
+    "database": "demodb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
