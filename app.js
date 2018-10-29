@@ -3,16 +3,28 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var exphbs = require ('express-hbs');
+var equalHbs = require ('handlebars-helper-equal');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signupRouter = require ('./routes/signup');
+var loginRouter = require ('./routes/login');
+var todoRouter = require ('./routes/todos');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'jade');
+exphbs.registerHelper('equal', equalHbs)
+app.engine('hbs', exphbs.express4({
+    layoutsDir: path.join(__dirname, './views')
+//    defaultLayout: path.join(__dirname, '../src/views/layouts/main.hbs'),
+//    helpers: require('./hbshelpers')
+}))
+app.set('views', path.join(__dirname, './views'))
+app.set('view engine', 'hbs')
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/todos', todoRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -32,6 +46,11 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  
+  if (err) {
+      console.log ('error_aaya : ' + err)
+  }
+    
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

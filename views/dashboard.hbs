@@ -1,0 +1,27 @@
+<html>
+    Hi {{u_name}}
+    <br>
+    <form method="POST" action="/todos/addtodo">
+        <input name='newtodo' placeholder="Enter todo">
+        <input type="hidden" name="userid" value={{u_id}}>
+        <button class="pointer" type="submit">Add Todo</button>
+    </form>
+    <br><br>
+    <ul>
+        {{#each u_todos as |todo|}}
+            <li>
+            <form method="POST" action="/todos/updatechecked">
+            <input type="hidden" name="todoid" value={{todo.id}}>
+            <button>
+                {{#if todo.checked}}
+                    <strike>{{todo.name}}</strike>
+                {{/if}}
+                {{#unless todo.checked}}
+                    {{todo.name}}
+                {{/unless}}
+            </button>
+            </form>
+            </li>
+        {{/each}}
+    </ul>
+</html>
