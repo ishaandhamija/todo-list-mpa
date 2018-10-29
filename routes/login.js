@@ -18,7 +18,7 @@ router.post('/abc', (req, res) => {
             var id = user[0].id;
             var uname = user[0].name;
             
-            todoController.findAllTodos(id).then(todos => {
+            return todoController.findAllTodos(id).then(todos => {
                 res.render ('dashboard', {
                     u_id: id,
                     u_name: uname,

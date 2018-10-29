@@ -1,13 +1,49 @@
 <html>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#addbtn').on('click', function(event) {
+                event.preventDefault()
+                $.ajax ({
+                    url: '/todos/addtodo',
+                    type: "POST",
+                    data: { 
+                        newtodo: $('#new_todo').val(), 
+                        userid: {{u_id}} 
+                    },
+                    success: function (todo) {
+                        console.log('func_calledd')
+//                        let $tlist = $('#todolist')
+//                        $tlist.append(`${todo.name}`)
+                        $("#todolist").append
+                        (`<li>
+                          <form method="POST" action="/todos/updatechecked">
+                          <input type="hidden" name="todoid" value={{todo.id}}>
+                          <button>
+                            {{#if todo.checked}}
+                                <strike>${todo.name}</strike>
+                            {{/if}}
+                            {{#unless todo.checked}}
+                                ${todo.name}
+                            {{/unless}}
+                          </button>
+                          </form>
+                          </li>`);
+                    }
+                })
+            })  
+        })
+    </script>
+    
     Hi {{u_name}}
     <br>
-    <form method="POST" action="/todos/addtodo">
-        <input name='newtodo' placeholder="Enter todo">
-        <input type="hidden" name="userid" value={{u_id}}>
-        <button class="pointer" type="submit">Add Todo</button>
+    <form method="POST">
+        <input id="new_todo" name='newtodo' placeholder="Enter todo">
+        <button id="addbtn" class="pointer" type="submit">Add Todo</button>
     </form>
     <br><br>
-    <ul>
+    <ul id="todolist">
         {{#each u_todos as |todo|}}
             <li>
             <form method="POST" action="/todos/updatechecked">

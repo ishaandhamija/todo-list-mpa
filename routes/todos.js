@@ -8,9 +8,10 @@ router.post('/addtodo', (req, res) => {
     
     console.log('user_ki_id : ' + userid)
     
-    todoController.addTodo(text, userid)
+    return todoController.addTodo(text, userid)
         .then(todo => {
-            res.send('todo_added')
+            res.send(todo)
+//            return todo
         })
         .catch(err => {
             console.error (err)
